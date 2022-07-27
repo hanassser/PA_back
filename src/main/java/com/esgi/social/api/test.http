@@ -1,6 +1,18 @@
 ###
-POST https://ec2-34-238-249-33.compute-1.amazonaws.com:8000/ums/user/login
+POST http://ec2-34-238-249-33.compute-1.amazonaws.com/ums/user/login
 Content-Type: application/json;charset=UTF-8
 
 {"username":"Jade","password":"12345678","rememberMe":true}
+###
+
+###
+GET https://ec2-34-238-249-33.compute-1.amazonaws.com/test
+Content-Type: application/json;charset=UTF-8
+
+###
+
+###
+GET localhost/test/
+Content-Type: application/json;charset=UTF-8
+
 ###

@@ -1,0 +1,63 @@
+GET http://localhost/test/
+Content-Type: application/json;charset=UTF-8
+
+<> 2022-07-27T204828.200.json
+
+###
+
+POST http://ec2-34-238-249-33.compute-1.amazonaws.com/ums/user/login
+Content-Type: application/json;charset=UTF-8
+
+{"username":"Jade","password":"12345678","rememberMe":true}
+
+###
+
+GET http://localhost/test
+Content-Type: application/json;charset=UTF-8
+
+<> 2022-07-27T204750.404.json
+
+###
+
+POST https://ec2-34-238-249-33.compute-1.amazonaws.com/ums/user/login
+Content-Type: application/json;charset=UTF-8
+
+{"username":"Jade","password":"12345678","rememberMe":true}
+
+###
+
+POST https://ec2-34-238-249-33.compute-1.amazonaws.com:80/ums/user/login
+Content-Type: application/json;charset=UTF-8
+
+{"username":"Jade","password":"12345678","rememberMe":true}
+
+###
+
+POST https://ec2-34-238-249-33.compute-1.amazonaws.com:80/ums/user/login
+Content-Type: application/json;charset=UTF-8
+
+{"username":"Jade","password":"12345678","rememberMe":true}
+
+###
+
+POST http://ec2-34-238-249-33.compute-1.amazonaws.com:80/ums/user/login
+Content-Type: application/json;charset=UTF-8
+
+{"username":"Jade","password":"12345678","rememberMe":true}
+
+###
+
+POST http://34.238.249.33:8088/ums/user/login
+Content-Type: application/json;charset=UTF-8
+
+{"username":"Jade","password":"12345678","rememberMe":true}
+
+###
+
+POST http://ec2-34-238-249-33.compute-1.amazonaws.com:8088/ums/user/login
+Content-Type: application/json;charset=UTF-8
+
+{"username":"Jade","password":"12345678","rememberMe":true}
+
+###
+

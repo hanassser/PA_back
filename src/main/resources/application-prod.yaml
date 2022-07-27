@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: admin
+    username: admin111
     password: adminsncesgi2022
     url: jdbc:mysql://socialnetcode.cpwcr46gx1dy.eu-west-1.rds.amazonaws.com:3306/social?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=GMT%2B8
     type: com.zaxxer.hikari.HikariDataSource
