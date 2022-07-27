@@ -1,0 +1,6 @@
+###
+POST localhost:8088/ums/user/login
+Content-Type: application/json;charset=UTF-8
+
+{"username":"Jade","password":"12345678","rememberMe":true}
+###
