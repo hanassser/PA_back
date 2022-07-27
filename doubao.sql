@@ -259,3 +259,27 @@ INSERT INTO `ums_user` VALUES ('1349290158897311745', 'admin', 'admin', '$2a$10$
 INSERT INTO `ums_user` VALUES ('1349618748226658305', 'zhangsan', 'zhangsan', '$2a$10$7K3yYv8sMV5Xsc2facXTcuyDo8JQ4FJHvjZ7qtWYcJdei3Q6Fvqdm', 'https://s3.ax1x.com/2020/12/01/DfHNo4.jpg', '23456@qq.com', NULL, 0, '', '自由职业者', b'1', b'1', NULL, '2021-01-14 15:25:59', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+
+-- ----------------------------
+-- Table structure for bms_post
+-- ----------------------------
+DROP TABLE IF EXISTS `bms_codepost`;
+CREATE TABLE `bms_codepost`  (
+  `id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `code` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `description` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `user_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `original_post_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `language` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  'was_reviewed' boolean NOT NULL default false,
+  `comments` int NOT NULL DEFAULT 0 ,
+  `view` int NOT NULL DEFAULT 0 ,
+  `create_time` datetime NOT NULL ,
+  `modify_time` datetime,
+  UNIQUE INDEX `title`(`title`) USING BTREE,
+  INDEX `user_id`(`user_id`) USING BTREE,
+  INDEX `create_time`(`create_time`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+

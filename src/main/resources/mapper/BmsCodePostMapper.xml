@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.esgi.social.mapper.CodePostMapper">
+    <resultMap id="codePostVO" type="com.esgi.social.model.vo.CodePostVO">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="user_id" property="userId"/>
+        <result column="original_post_id" property="originalPostId"/>
+        <result column="was_reviewed" property="wasReviewed"/>
+        <result column="comments" property="comments"/>
+        <result column="view" property="view"/>
+        <result column="description" property="description"/>
+        <result column="language" property="language"/>
+        <result column="code" property="code"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modify_time" property="modifyTime"/>
+        <result column="username" property="username"/>
+        <result column="alias" property="alias"/>
+        <result column="avatar" property="avatar"/>
+    </resultMap>
+
+
+    <select id="searchByKeyword" resultMap="codePostVO">
+        SELECT *,
+        u.username,
+        u.alias,
+        u.avatar
+        FROM bms_codepost t
+        LEFT JOIN ums_user u
+        ON t.user_id = u.id
+        <where>
+            <if test="keyword!=null">
+                and t.title like CONCAT('%','${keyword}')
+                or t.title like CONCAT('${keyword}','%')
+                or t.title like CONCAT('%','${keyword}','%')
+                or t.title = #{keyword}
+                or t.description like CONCAT('${keyword}','%')
+                or t.description like CONCAT('%','${keyword}','%')
+                or t.description = #{keyword}
+            </if>
+        </where>
+        order by t.view desc, t.create_time desc
+    </select>
+</mapper>
