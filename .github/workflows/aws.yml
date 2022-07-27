@@ -29,6 +29,6 @@ jobs:
         username: ec2-user
         key: ${{ secrets.PA_RSA_PRIVATE_KEY }}
         port: 22
-        source: "target/PA_back-1.0-SNAPSHOT.jar"
+        source: "target/social-0.0.1-SNAPSHOT.jar"
         target: "/home/ec2-user"
         
