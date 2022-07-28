@@ -1,4 +1,4 @@
-name: remote ssh command
+name: Continuous integration and deployment
 on: 
   push: 
     branches:
@@ -10,13 +10,25 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+        
+    - name: Build
+      run: mvn -B package --file pom.xml -DskipTests=true
+        
     - uses: actions/checkout@v1
-    - name: Deploy Files
+    - name: Upload to EC2
       uses: appleboy/scp-action@master
       with:
         host: ec2-34-238-249-33.compute-1.amazonaws.com
         username: ec2-user
         key: ${{ secrets.PA_RSA_PRIVATE_KEY }}
-        source: ./
         port: 22
-        target: ./
+        source: "target/social-0.0.1-SNAPSHOT.jar"
+        target: "/home/ec2-user"
+        
