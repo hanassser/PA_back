@@ -7,6 +7,7 @@ import com.esgi.social.model.entity.CodePost;
 import com.esgi.social.model.entity.UmsUser;
 import com.esgi.social.model.vo.CodePostVO;
 
+import java.util.List;
 
 
 public interface ICodePostService extends IService<CodePost> {
@@ -20,6 +21,14 @@ public interface ICodePostService extends IService<CodePost> {
      * @return CodePost
      */
     CodePost create(CreateCodePostDTO dto, UmsUser principal);
+
+    /**
+
+     *
+     * @param principal
+     * @return CodePost
+     */
+    Page<CodePostVO> getAllByUser(Page<CodePostVO> page, UmsUser principal);
 
     /**
      *

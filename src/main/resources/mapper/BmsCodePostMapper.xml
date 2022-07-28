@@ -19,6 +19,22 @@
         <result column="avatar" property="avatar"/>
     </resultMap>
 
+    <select id="getAllByUserName" resultMap="codePostVO">
+        SELECT *,
+        u.username,
+        u.alias,
+        u.avatar
+        FROM bms_codepost t
+        LEFT JOIN ums_user u
+        ON t.user_id = u.id
+        <where>
+            <if test="username!=null">
+                and u.username = #{username}
+            </if>
+        </where>
+        order by t.view desc, t.create_time desc
+    </select>
+
 
     <select id="searchByKeyword" resultMap="codePostVO">
         SELECT *,

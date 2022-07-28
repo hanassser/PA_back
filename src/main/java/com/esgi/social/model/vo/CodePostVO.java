@@ -16,14 +16,14 @@ import java.util.List;
 public class CodePostVO implements Serializable {
     private static final long serialVersionUID = -261082150965211545L;
 
-    /**
-     * 文章ID
-     */
+
     private String id;
 
     private String userId;
 
     private String originalAuthorId;
+
+    private String language;
 
     private boolean wasReviewed;
 

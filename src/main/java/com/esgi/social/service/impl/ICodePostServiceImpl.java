@@ -45,6 +45,11 @@ public class ICodePostServiceImpl extends ServiceImpl<CodePostMapper, CodePost> 
         return codePost;
     }
 
+    @Override
+    public Page<CodePostVO> getAllByUser(Page<CodePostVO> page, UmsUser principal){
+        return this.baseMapper.getAllByUserName(page, principal.getUsername());
+    }
+
 
     @Override
     public Page<CodePostVO> searchByKeyword(String keyword, Page<CodePostVO> page) {
