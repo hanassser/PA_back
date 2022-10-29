@@ -15,19 +15,21 @@ public class Follow implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * key
      */
     @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 被关注人id
+     * id of person who is being followed
      */
     @TableField("parent_id")
     private String parentId;
 
+    @TableField("follower_name")
+    private String followerName;
     /**
-     * 关注人id
+     * id of followers
      */
     @TableField("follower_id")
     private String followerId;
