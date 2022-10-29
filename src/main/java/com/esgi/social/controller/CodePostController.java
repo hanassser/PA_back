@@ -15,6 +15,7 @@ import com.esgi.social.service.IUmsUserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 
 @RestController
@@ -43,6 +44,20 @@ public class CodePostController extends BaseController {
         UmsUser user = umsUserService.getUserByUsername(userName);
         Page<CodePostVO> list = iCodePostService.getAllByUser(new Page<>(pageNo, pageSize),user);
         return ApiResult.success(list);
+    }
+
+    @RequestMapping(value = "/contribute", method = RequestMethod.POST)
+    public ApiResult<CodePost> contribute(@RequestHeader(value = JwtUtil.USER_NAME) String userName
+            , @RequestBody CreateCodePostDTO dto) {
+        UmsUser user = umsUserService.getUserByUsername(userName);
+        CodePost codePost = iCodePostService.create(dto, user);
+        return ApiResult.success(codePost);
+    }
+
+    @GetMapping()
+    public ApiResult<Map<String, Object>> view(@RequestParam("id") String id) {
+        Map<String, Object> map = iCodePostService.viewTopic(id);
+        return ApiResult.success(map);
     }
 
 }

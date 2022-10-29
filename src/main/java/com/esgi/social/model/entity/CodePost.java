@@ -34,6 +34,10 @@ public class CodePost implements Serializable {
     @TableField("language")
     private String language;
 
+//    @NotBlank(message = "Language can not be empty")
+    @TableField("language_id")
+    private int languageId;
+
     @NotBlank(message = "author_id can not be empty")
     @TableField("user_id")
     private String userId;

@@ -8,6 +8,7 @@ import com.esgi.social.model.entity.UmsUser;
 import com.esgi.social.model.vo.CodePostVO;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface ICodePostService extends IService<CodePost> {
@@ -37,4 +38,6 @@ public interface ICodePostService extends IService<CodePost> {
      * @return
      */
     Page<CodePostVO> searchByKeyword(String keyword, Page<CodePostVO> page);
+
+    Map<String, Object> viewTopic(String id);
 }

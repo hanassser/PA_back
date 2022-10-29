@@ -11,6 +11,7 @@
         <result column="view" property="view"/>
         <result column="description" property="description"/>
         <result column="language" property="language"/>
+        <result column="language_id" property="languageId"/>
         <result column="code" property="code"/>
         <result column="create_time" property="createTime"/>
         <result column="modify_time" property="modifyTime"/>

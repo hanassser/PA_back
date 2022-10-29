@@ -15,9 +15,11 @@ public class CreateCodePostDTO {
 
     private String language;
 
+    private int languageId;
+
     private String description;
 
-    private String originalAuthorId;
+    private String originalPostId;
 
 
 }
