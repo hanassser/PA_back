@@ -21,7 +21,7 @@ public class CodePostVO implements Serializable {
 
     private String userId;
 
-    private String originalAuthorId;
+    private String originalPostId;
 
     private String language;
 

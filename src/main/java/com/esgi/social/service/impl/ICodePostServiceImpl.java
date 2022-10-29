@@ -40,6 +40,7 @@ public class ICodePostServiceImpl extends ServiceImpl<CodePostMapper, CodePost> 
                 .code(dto.getCode())
                 .description(dto.getDescription())
                 .language(dto.getLanguage())
+                .languageId(dto.getLanguageId())
                 .wasReviewed(false)
                 .originalPostId(dto.getOriginalPostId())
                 .createTime(new Date())
