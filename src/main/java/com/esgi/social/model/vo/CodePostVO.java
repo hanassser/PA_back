@@ -25,6 +25,8 @@ public class CodePostVO implements Serializable {
 
     private String language;
 
+    private int languageId;
+
     private boolean wasReviewed;
 
     private String avatar;

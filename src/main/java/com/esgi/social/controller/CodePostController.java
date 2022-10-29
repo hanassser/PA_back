@@ -60,4 +60,12 @@ public class CodePostController extends BaseController {
         return ApiResult.success(map);
     }
 
+    @GetMapping("/list")
+    public ApiResult<Page<CodePostVO>> list(@RequestParam(value = "tab", defaultValue = "latest") String tab,
+                                        @RequestParam(value = "pageNo", defaultValue = "1")  Integer pageNo,
+                                        @RequestParam(value = "size", defaultValue = "10") Integer pageSize) {
+        Page<CodePostVO> list = iCodePostService.getList(new Page<>(pageNo, pageSize), tab);
+        return ApiResult.success(list);
+    }
+
 }

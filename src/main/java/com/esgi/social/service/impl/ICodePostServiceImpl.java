@@ -1,7 +1,6 @@
 package com.esgi.social.service.impl;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.esgi.social.mapper.CodePostMapper;
@@ -9,9 +8,9 @@ import com.esgi.social.mapper.UmsUserMapper;
 import com.esgi.social.model.dto.CreateCodePostDTO;
 import com.esgi.social.model.entity.*;
 import com.esgi.social.model.vo.CodePostVO;
+import com.esgi.social.model.vo.PostVO;
 import com.esgi.social.model.vo.ProfileVO;
 import com.esgi.social.service.*;
-import com.vdurmont.emoji.EmojiParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +18,7 @@ import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -70,29 +70,34 @@ public class ICodePostServiceImpl extends ServiceImpl<CodePostMapper, CodePost> 
         Map<String, Object> map = new HashMap<>(16);
         CodePost codePost = this.baseMapper.selectById(id);
         Assert.notNull(codePost, "Le post n'existe pas");
-        // 查询话题详情
+
         codePost.setView(codePost.getView() + 1);
         this.baseMapper.updateById(codePost);
-        // emoji转码
-//        topic.setContent(EmojiParser.parseToUnicode(topic.getContent()));
-        map.put("codepost", codePost);
-        // 标签
-//        QueryWrapper<TopicTag> wrapper = new QueryWrapper<>();
-//        wrapper.lambda().eq(TopicTag::getTopicId, topic.getId());
-//        Set<String> set = new HashSet<>();
-//        for (TopicTag articleTag : ITopicTagService.list(wrapper)) {
-//            set.add(articleTag.getTagId());
-//        }
-//        List<Tag> tags = iTagService.listByIds(set);
-//        map.put("tags", tags);
 
-        // 作者
+        map.put("codepost", codePost);
 
         ProfileVO user = iUmsUserService.getUserProfile(codePost.getUserId());
         map.put("user", user);
 
         return map;
     }
+
+    @Override
+    public Page<CodePostVO> getList(Page<CodePostVO> page, String tab) {
+        //        setTopicTags(iPage);
+        return this.baseMapper.selectListAndPage(page, tab);
+    }
+
+//    private void setTopicTags(Page<PostVO> iPage) {
+//        iPage.getRecords().forEach(topic -> {
+//            List<TopicTag> topicTags = ITopicTagService.selectByTopicId(topic.getId());
+//            if (!topicTags.isEmpty()) {
+//                List<String> tagIds = topicTags.stream().map(TopicTag::getTagId).collect(Collectors.toList());
+//                List<Tag> tags = tagMapper.selectBatchIds(tagIds);
+//                topic.setTags(tags);
+//            }
+//        });
+//    }
 
 
 }

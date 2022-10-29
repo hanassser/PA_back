@@ -58,4 +58,12 @@
         </where>
         order by t.view desc, t.create_time desc
     </select>
+
+    <select id="selectListAndPage" resultMap="codePostVO">
+        SELECT *
+        FROM bms_codepost t
+        LEFT JOIN ums_user u
+        ON t.user_id = u.id
+        order by t.create_time desc
+    </select>
 </mapper>
