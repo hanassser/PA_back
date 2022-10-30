@@ -42,6 +42,7 @@ CREATE TABLE `bms_follow`  (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
   `parent_id` varchar(20) CHARACTER SET utf8mb4 NULL DEFAULT NULL COMMENT '被关注人ID',
   `follower_id` varchar(20) CHARACTER SET utf8mb4 NULL DEFAULT NULL COMMENT '关注人ID',
+  `follower_name` varchar(20) CHARACTER SET utf8mb4 NULL DEFAULT NULL COMMENT '关注人ID',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 130 CHARACTER SET = utf8mb4  COMMENT = '用户关注' ROW_FORMAT = DYNAMIC;
 

@@ -35,14 +35,12 @@ public class RelationshipController extends BaseController {
     @GetMapping("/followers/{userId}")
     public ApiResult<Object> handleFollowers(@RequestHeader(value = JwtUtil.USER_NAME) String userName
             , @PathVariable("userId") String parentId) {
-        UmsUser umsUser = umsUserService.getUserByUsername(userName);
+        UmsUser umsUser = umsUserService.getById(parentId);
 
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.eq("parent_id",umsUser.getId());
         List<Follow> FollowersList = followMapper.selectList(wrapper);
 
-        System.out.println(FollowersList);
-        System.out.println(FollowersList.get(0));
         return ApiResult.success(FollowersList, "followed");
     }
 
