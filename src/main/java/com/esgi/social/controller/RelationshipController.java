@@ -35,6 +35,7 @@ public class RelationshipController extends BaseController {
     @GetMapping("/followers/{userId}")
     public ApiResult<Object> handleFollowers(@RequestHeader(value = JwtUtil.USER_NAME) String userName
             , @PathVariable("userId") String parentId) {
+        System.out.println(parentId);
         UmsUser umsUser = umsUserService.getById(parentId);
 
         QueryWrapper wrapper = new QueryWrapper();
