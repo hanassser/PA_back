@@ -94,6 +94,12 @@ public class CodePostController extends BaseController {
         return ApiResult.success(list);
     }
 
+    @GetMapping("/follows")
+    public ApiResult<List<String>> selectFollowList(@RequestParam(value = "userId") String userId) {
+        List<String> list = iCodePostService.selectFollowList(userId);
+        return ApiResult.success(list);
+    }
+
 
 
     @RequestMapping(value = "/contribute", method = RequestMethod.POST)

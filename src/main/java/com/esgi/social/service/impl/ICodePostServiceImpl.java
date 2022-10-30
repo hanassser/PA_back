@@ -91,6 +91,14 @@ public class ICodePostServiceImpl extends ServiceImpl<CodePostMapper, CodePost> 
         return this.baseMapper.selectCodePostAfter(codePostId);
 
     }
+    //TODO Déplacer
+    @Override
+    public List<String> selectFollowList(String usertId) {
+
+        Set<String> sourceSet = this.baseMapper.selectFollowList(usertId);
+        return new ArrayList<>(sourceSet);
+
+    }
 
     @Override
     public Page<CodePostVO> getAllContributionByUserName(Page<CodePostVO> page, UmsUser principal){

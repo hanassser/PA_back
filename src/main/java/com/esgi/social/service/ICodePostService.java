@@ -49,6 +49,9 @@ public interface ICodePostService extends IService<CodePost> {
     Map<String, Object> viewTopic(String id);
 
     Page<CodePostVO> getList(Page<CodePostVO> page, String tab);
+    List<String> selectFollowList(String userId);
+
+
 
 
 

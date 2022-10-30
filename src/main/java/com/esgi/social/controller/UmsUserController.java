@@ -39,6 +39,8 @@ public class UmsUserController extends BaseController {
         return ApiResult.success(map);
     }
 
+
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ApiResult<Map<String, String>> login(@Valid @RequestBody LoginDTO dto) {
         String token = iUmsUserService.executeLogin(dto);
@@ -73,6 +75,13 @@ public class UmsUserController extends BaseController {
         map.put("user", user);
         map.put("topics", page);
         return ApiResult.success(map);
+    }
+
+    @GetMapping("/byId")
+    public ApiResult<UmsUser> getUserById(@RequestParam("userId") String userId) {
+        UmsUser user = iUmsUserService.getById(userId);
+        Assert.notNull(user, "user not exist");
+        return ApiResult.success(user);
     }
     @PostMapping("/update")
     public ApiResult<UmsUser> updateUser(@RequestBody UmsUser umsUser) {

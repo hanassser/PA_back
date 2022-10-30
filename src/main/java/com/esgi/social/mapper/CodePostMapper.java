@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface CodePostMapper extends BaseMapper<CodePost> {
@@ -58,4 +59,5 @@ public interface CodePostMapper extends BaseMapper<CodePost> {
     Page<CodePostVO> selectListAndPage(Page<CodePostVO> page, String tab);
 
     List<CodePost> selectCodePostAfter(String codePostId);
+    Set<String> selectFollowList(String userId);
 }
