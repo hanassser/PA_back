@@ -8,7 +8,6 @@ import com.esgi.social.mapper.UmsUserMapper;
 import com.esgi.social.model.dto.CreateCodePostDTO;
 import com.esgi.social.model.entity.*;
 import com.esgi.social.model.vo.CodePostVO;
-import com.esgi.social.model.vo.PostVO;
 import com.esgi.social.model.vo.ProfileVO;
 import com.esgi.social.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -42,6 +40,7 @@ public class ICodePostServiceImpl extends ServiceImpl<CodePostMapper, CodePost> 
                 .language(dto.getLanguage())
                 .languageId(dto.getLanguageId())
                 .wasReviewed(false)
+                .reviewOf(dto.getReviewOf())
                 .originalPostId(dto.getOriginalPostId())
                 .createTime(new Date())
                 .build();
@@ -59,6 +58,39 @@ public class ICodePostServiceImpl extends ServiceImpl<CodePostMapper, CodePost> 
         return this.baseMapper.getAllByUserName(page, principal.getUsername());
     }
 
+    @Override
+    public Page<CodePostVO> getAllOriginalByUserName(Page<CodePostVO> page, UmsUser principal){
+        return this.baseMapper.getAllOriginalByUserName(page, principal.getUsername());
+    }
+
+    @Override
+    public List<CodePost> getCodePostChainBefore(String codePostId){
+        List<CodePost> codePostList = new ArrayList<>();
+        CodePost codePost = this.baseMapper.selectById(codePostId);
+            do {
+                codePostList.add(codePost);
+                String ogId = codePost.getOriginalPostId();
+                if (ogId == null || ogId.equals("")) {
+                    codePostList.add(codePost);
+                }
+                codePost = this.baseMapper.selectById(ogId);
+
+            } while (codePost != null);
+
+        return codePostList;
+    }
+
+    @Override
+    public List<CodePost> getCodePostChainAfter(String codePostId) {
+
+        return this.baseMapper.selectCodePostAfter(codePostId);
+
+    }
+
+    @Override
+    public Page<CodePostVO> getAllContributionByUserName(Page<CodePostVO> page, UmsUser principal){
+        return this.baseMapper.getAllContributionByUserName(page, principal.getUsername());
+    }
 
     @Override
     public Page<CodePostVO> searchByKeyword(String keyword, Page<CodePostVO> page) {
@@ -85,20 +117,8 @@ public class ICodePostServiceImpl extends ServiceImpl<CodePostMapper, CodePost> 
 
     @Override
     public Page<CodePostVO> getList(Page<CodePostVO> page, String tab) {
-        //        setTopicTags(iPage);
         return this.baseMapper.selectListAndPage(page, tab);
     }
-
-//    private void setTopicTags(Page<PostVO> iPage) {
-//        iPage.getRecords().forEach(topic -> {
-//            List<TopicTag> topicTags = ITopicTagService.selectByTopicId(topic.getId());
-//            if (!topicTags.isEmpty()) {
-//                List<String> tagIds = topicTags.stream().map(TopicTag::getTagId).collect(Collectors.toList());
-//                List<Tag> tags = tagMapper.selectBatchIds(tagIds);
-//                topic.setTags(tags);
-//            }
-//        });
-//    }
 
 
 }

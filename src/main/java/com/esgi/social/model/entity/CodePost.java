@@ -34,7 +34,6 @@ public class CodePost implements Serializable {
     @TableField("language")
     private String language;
 
-//    @NotBlank(message = "Language can not be empty")
     @TableField("language_id")
     private int languageId;
 
@@ -52,13 +51,12 @@ public class CodePost implements Serializable {
     @TableField("was_reviewed")
     private boolean wasReviewed;
 
+    @TableField("review_of")
+    private String reviewOf;
+
     @TableField("comments")
     @Builder.Default
     private Integer comments = 0;
-
-//    @TableField("collects")
-//    @Builder.Default
-//    private Integer collects = 0;
 
     @TableField("view")
     @Builder.Default

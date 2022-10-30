@@ -12,9 +12,14 @@ import com.esgi.social.model.vo.CodePostVO;
 import com.esgi.social.model.vo.PostVO;
 import com.esgi.social.service.ICodePostService;
 import com.esgi.social.service.IUmsUserService;
+import com.vdurmont.emoji.EmojiParser;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 
@@ -46,6 +51,41 @@ public class CodePostController extends BaseController {
         return ApiResult.success(list);
     }
 
+    @GetMapping("/listog4user")
+    public ApiResult<Page<CodePostVO>> getAllOriginalByUserName(@RequestHeader(value = JwtUtil.USER_NAME) String userName,
+                                                    @RequestParam(value = "tab", defaultValue = "latest") String tab,
+                                                    @RequestParam(value = "pageNo", defaultValue = "1")  Integer pageNo,
+                                                    @RequestParam(value = "size", defaultValue = "10") Integer pageSize) {
+        UmsUser user = umsUserService.getUserByUsername(userName);
+        Page<CodePostVO> list = iCodePostService.getAllOriginalByUserName(new Page<>(pageNo, pageSize),user);
+        return ApiResult.success(list);
+    }
+
+    @GetMapping("/listcontrib4user")
+    public ApiResult<Page<CodePostVO>> getAllContributionByUserName(@RequestHeader(value = JwtUtil.USER_NAME) String userName,
+                                                                @RequestParam(value = "tab", defaultValue = "latest") String tab,
+                                                                @RequestParam(value = "pageNo", defaultValue = "1")  Integer pageNo,
+                                                                @RequestParam(value = "size", defaultValue = "10") Integer pageSize) {
+        UmsUser user = umsUserService.getUserByUsername(userName);
+        Page<CodePostVO> list = iCodePostService.getAllContributionByUserName(new Page<>(pageNo, pageSize),user);
+        return ApiResult.success(list);
+    }
+
+    @GetMapping("/listbefore")
+    public ApiResult<List<CodePost>> getCodePostChainBefore(@RequestParam(value = "codePostId") String codePostId) {
+        List<CodePost> list = iCodePostService.getCodePostChainBefore(codePostId);
+        return ApiResult.success(list);
+    }
+
+
+    @GetMapping("/listafter")
+    public ApiResult<List<CodePost>> getCodePostChainAfter(@RequestParam(value = "codePostId") String codePostId) {
+        List<CodePost> list = iCodePostService.getCodePostChainAfter(codePostId);
+        return ApiResult.success(list);
+    }
+
+
+
     @RequestMapping(value = "/contribute", method = RequestMethod.POST)
     public ApiResult<CodePost> contribute(@RequestHeader(value = JwtUtil.USER_NAME) String userName
             , @RequestBody CreateCodePostDTO dto) {
@@ -66,6 +106,17 @@ public class CodePostController extends BaseController {
                                         @RequestParam(value = "size", defaultValue = "10") Integer pageSize) {
         Page<CodePostVO> list = iCodePostService.getList(new Page<>(pageNo, pageSize), tab);
         return ApiResult.success(list);
+    }
+
+    @PostMapping("/update")
+    public ApiResult<CodePost> update(@RequestHeader(value = JwtUtil.USER_NAME) String userName, @Valid @RequestBody CodePost codepost) {
+        UmsUser umsUser = umsUserService.getUserByUsername(userName);
+        Assert.isTrue(umsUser.getId().equals(codepost.getUserId()), "user cant be modified");
+        codepost.setModifyTime(new Date());
+        codepost.setWasReviewed(true);
+        System.out.println(codepost.toString());
+        System.out.println(iCodePostService.updateById(codepost));
+        return ApiResult.success(codepost);
     }
 
 }

@@ -7,6 +7,7 @@
         <result column="user_id" property="userId"/>
         <result column="original_post_id" property="originalPostId"/>
         <result column="was_reviewed" property="wasReviewed"/>
+        <result column="review_of" property="reviewOf"/>
         <result column="comments" property="comments"/>
         <result column="view" property="view"/>
         <result column="description" property="description"/>
@@ -36,6 +37,41 @@
         order by t.view desc, t.create_time desc
     </select>
 
+    <select id="getAllOriginalByUserName" resultMap="codePostVO">
+        SELECT *,
+        u.username,
+        u.alias,
+        u.avatar
+        FROM bms_codepost t
+        LEFT JOIN ums_user u
+        ON t.user_id = u.id
+        <where>
+            <if test="username!=null">
+                and u.username = #{username}
+                and t.was_reviewed = false
+                and (t.original_post_id = ''
+                or t.original_post_id is null)
+            </if>
+        </where>
+        order by t.view desc, t.create_time desc
+    </select>
+    <select id="getAllContributionByUserName" resultMap="codePostVO">
+        SELECT *,
+        u.username,
+        u.alias,
+        u.avatar
+        FROM bms_codepost t
+        LEFT JOIN ums_user u
+        ON t.user_id = u.id
+        <where>
+            <if test="username!=null">
+                and u.username = #{username}
+                and (t.original_post_id != ''
+                or t.original_post_id is not null)
+            </if>
+        </where>
+        order by t.view desc, t.create_time desc
+    </select>
 
     <select id="searchByKeyword" resultMap="codePostVO">
         SELECT *,
@@ -66,4 +102,16 @@
         ON t.user_id = u.id
         order by t.create_time desc
     </select>
+
+    <select id="selectCodePostAfter" resultType="com.esgi.social.model.entity.CodePost">
+        SELECT *
+        FROM bms_codepost t
+        where
+
+              original_post_id = #{codePostId}
+
+        order by t.create_time desc
+    </select>
+
+
 </mapper>

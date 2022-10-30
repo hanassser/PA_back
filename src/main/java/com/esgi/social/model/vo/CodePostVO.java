@@ -29,6 +29,8 @@ public class CodePostVO implements Serializable {
 
     private boolean wasReviewed;
 
+    private String reviewOf;
+
     private String avatar;
 
     private String alias;

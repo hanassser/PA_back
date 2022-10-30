@@ -6,7 +6,6 @@ import com.esgi.social.model.dto.CreateCodePostDTO;
 import com.esgi.social.model.entity.CodePost;
 import com.esgi.social.model.entity.UmsUser;
 import com.esgi.social.model.vo.CodePostVO;
-import com.esgi.social.model.vo.PostVO;
 
 import java.util.List;
 import java.util.Map;
@@ -32,6 +31,12 @@ public interface ICodePostService extends IService<CodePost> {
      */
     Page<CodePostVO> getAllByUser(Page<CodePostVO> page, UmsUser principal);
 
+    Page<CodePostVO> getAllOriginalByUserName(Page<CodePostVO> page, UmsUser principal);
+
+    Page<CodePostVO> getAllContributionByUserName(Page<CodePostVO> page, UmsUser principal);
+
+    List<CodePost> getCodePostChainBefore(String codePostId);
+    List<CodePost> getCodePostChainAfter(String codePostId);
     /**
      *
      * @param keyword
@@ -43,4 +48,7 @@ public interface ICodePostService extends IService<CodePost> {
     Map<String, Object> viewTopic(String id);
 
     Page<CodePostVO> getList(Page<CodePostVO> page, String tab);
+
+
+
 }

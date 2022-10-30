@@ -21,5 +21,7 @@ public class CreateCodePostDTO {
 
     private String originalPostId;
 
+    private String reviewOf;
+
 
 }

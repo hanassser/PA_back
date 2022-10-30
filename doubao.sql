@@ -275,6 +275,7 @@ CREATE TABLE `bms_codepost`  (
   `language` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `language_id` int(20),
   `was_reviewed` boolean NOT NULL default false,
+  `review_of` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci,
   `comments` int NOT NULL DEFAULT 0 ,
   `view` int NOT NULL DEFAULT 0 ,
   `create_time` datetime NOT NULL ,
