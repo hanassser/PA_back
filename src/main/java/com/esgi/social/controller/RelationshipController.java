@@ -1,8 +1,11 @@
 package com.esgi.social.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.esgi.social.common.api.ApiResult;
 import com.esgi.social.common.exception.ApiAsserts;
+import com.esgi.social.mapper.FollowMapper;
 import com.esgi.social.model.entity.Follow;
 import com.esgi.social.model.entity.UmsUser;
 import com.esgi.social.service.IFollowService;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,6 +28,24 @@ public class RelationshipController extends BaseController {
 
     @Resource
     private IUmsUserService umsUserService;
+
+    @Resource
+    private FollowMapper followMapper;
+
+    @GetMapping("/followers/{userId}")
+    public ApiResult<Object> handleFollowers(@RequestHeader(value = JwtUtil.USER_NAME) String userName
+            , @PathVariable("userId") String parentId) {
+        UmsUser umsUser = umsUserService.getUserByUsername(userName);
+
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq("parent_id",umsUser.getId());
+        List<Follow> FollowersList = followMapper.selectList(wrapper);
+
+        System.out.println(FollowersList);
+        System.out.println(FollowersList.get(0));
+        return ApiResult.success(FollowersList, "followed");
+    }
+
 
     @GetMapping("/subscribe/{userId}")
     public ApiResult<Object> handleFollow(@RequestHeader(value = JwtUtil.USER_NAME) String userName
@@ -43,6 +65,7 @@ public class RelationshipController extends BaseController {
         Follow follow = new Follow();
         follow.setParentId(parentId);
         follow.setFollowerId(umsUser.getId());
+        follow.setFollowerName(umsUser.getUsername());
         bmsFollowService.save(follow);
         return ApiResult.success(null, "followed");
     }
