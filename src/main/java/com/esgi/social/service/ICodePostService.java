@@ -37,6 +37,7 @@ public interface ICodePostService extends IService<CodePost> {
 
     List<CodePost> getCodePostChainBefore(String codePostId);
     List<CodePost> getCodePostChainAfter(String codePostId);
+    Page<CodePostVO> getAllFriendsCodePost(Page<CodePostVO> page, UmsUser principal);
     /**
      *
      * @param keyword

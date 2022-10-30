@@ -61,6 +61,16 @@ public class CodePostController extends BaseController {
         return ApiResult.success(list);
     }
 
+    @GetMapping("/listfriendscp")
+    public ApiResult<Page<CodePostVO>> getAllFriendsCodePost(@RequestHeader(value = JwtUtil.USER_NAME) String userName,
+                                                                @RequestParam(value = "tab", defaultValue = "latest") String tab,
+                                                                @RequestParam(value = "pageNo", defaultValue = "1")  Integer pageNo,
+                                                                @RequestParam(value = "size", defaultValue = "10") Integer pageSize) {
+        UmsUser user = umsUserService.getUserByUsername(userName);
+        Page<CodePostVO> list = iCodePostService.getAllFriendsCodePost(new Page<>(pageNo, pageSize),user);
+        return ApiResult.success(list);
+    }
+
     @GetMapping("/listcontrib4user")
     public ApiResult<Page<CodePostVO>> getAllContributionByUserName(@RequestHeader(value = JwtUtil.USER_NAME) String userName,
                                                                 @RequestParam(value = "tab", defaultValue = "latest") String tab,

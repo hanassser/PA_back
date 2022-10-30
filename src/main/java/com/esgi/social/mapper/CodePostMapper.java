@@ -42,6 +42,12 @@ public interface CodePostMapper extends BaseMapper<CodePost> {
      */
     Page<CodePostVO> getAllContributionByUserName(@Param("page") Page<CodePostVO> page, String username);
 
+    /**
+     *
+     * @param userId
+     * @return Page<CodePostVO>
+     */
+    Page<CodePostVO> selectFriendsCodePost(@Param("page") Page<CodePostVO> page, String userId);
 
     /**
      *

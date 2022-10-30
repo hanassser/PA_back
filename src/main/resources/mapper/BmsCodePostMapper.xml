@@ -113,5 +113,15 @@
         order by t.create_time desc
     </select>
 
+    <select id="selectFriendsCodePost" resultMap="codePostVO">
+        SELECT *
+        FROM bms_codepost t
+        where
+            user_id IN (select parent_id from bms_follow where follower_id = #{userId})
+
+        order by t.create_time desc
+    </select>
+
+
 
 </mapper>

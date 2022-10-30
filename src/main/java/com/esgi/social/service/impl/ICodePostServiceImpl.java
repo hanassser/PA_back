@@ -64,6 +64,11 @@ public class ICodePostServiceImpl extends ServiceImpl<CodePostMapper, CodePost> 
     }
 
     @Override
+    public Page<CodePostVO> getAllFriendsCodePost(Page<CodePostVO> page, UmsUser principal){
+        return this.baseMapper.selectFriendsCodePost(page, principal.getId());
+    }
+
+    @Override
     public List<CodePost> getCodePostChainBefore(String codePostId){
         List<CodePost> codePostList = new ArrayList<>();
         CodePost codePost = this.baseMapper.selectById(codePostId);
